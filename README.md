@@ -8,7 +8,21 @@
 - djangorestframework
 
 ### **Instructions & Urls**
-- **SkillsApp** - 
-Attempt | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11
---- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
-Seconds | 301 | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
+In order to run all of the queries, use Postman.  
+The server is running on http://127.0.0.1:8000 .
+- **SkillsApp**  
+  
+![image](https://user-images.githubusercontent.com/59745744/146016694-1e863040-6ae2-467c-8064-4d6bbeb74eb3.png)  
+  
+- **CandidatesApp**  
+  
+![image](https://user-images.githubusercontent.com/59745744/146017204-ebbcca5f-84e1-4a1a-bf47-90922826a984.png)  
+
+- **JobsApp**  
+  
+![image](https://user-images.githubusercontent.com/59745744/146017415-09526c67-8df5-4336-9fcd-a86ac3cbf089.png)
+
+- **CandidateFinderApp**
+  
+![image](https://user-images.githubusercontent.com/59745744/146018078-52afd539-610a-46fa-9689-5867065ef945.png)
+
