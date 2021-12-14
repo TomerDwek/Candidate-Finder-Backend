@@ -14,43 +14,46 @@ def candidateApi(request, id=0):
             try:
                 candidates = Candidate.objects.all()
                 candidate_serializer = CandidateSerializer(candidates, many=True)
-                return JsonResponse(candidate_serializer.data, safe=False)
+                return JsonResponse(candidate_serializer.data, safe=False, status=201)
             except:
-                return JsonResponse('Failed to ferch candidates!', safe=False)
+                return JsonResponse('Failed to ferch candidates!', safe=False, status=404)
         case 'POST':
             try:
                 candidate_data = JSONParser().parse(request)
+                if len(candidate_data['CandidateTitle']) == 0:
+                    return JsonResponse('Candidate Title Cannot Be Empty!', safe=False, status=400)
                 if checkValidSkills(candidate_data['CandidateSkills']) == False:
-                    return JsonResponse('Failed to Add Candidate! Not all of the requested skills are in the skills list', safe=False)
+                    return JsonResponse('Failed to Add Candidate! Not all of the requested skills are in the skills list', safe=False, status=400)
                 candidate_data['CandidateSkills'] = [skill.lower() for skill in candidate_data['CandidateSkills']]
                 candidate_serializer = CandidateSerializer(data=candidate_data)
-                print(candidate_serializer)
                 if (candidate_serializer.is_valid()):
                     candidate_serializer.save()
-                    return JsonResponse('Candidate Added Succesfully!', safe=False)
+                    return JsonResponse(candidate_serializer.data, safe=False, status=201)
             except:
-                return JsonResponse('Failed to Add Candidate!', safe=False)
+                return JsonResponse('Failed to Add Candidate!', safe=False, status=404)
         case 'PUT':
             try:
                 if id == 0:
-                    return JsonResponse('Must specify candidate ID in order to update it!', safe=False) 
+                    return JsonResponse('Must specify candidate ID in order to update it!', safe=False, status=400) 
                 candidate_data = JSONParser().parse(request)
+                if len(candidate_data['CandidateTitle']) == 0:
+                    return JsonResponse('Candidate Title Cannot Be Empty!', safe=False, status=400)
                 if checkValidSkills(candidate_data['CandidateSkills']) == False:
-                    return JsonResponse('Failed to Update Candidate! Not all of the requested skills are in the skills list', safe=False)
+                    return JsonResponse('Failed to Update Candidate! Not all of the requested skills are in the skills list', safe=False, status=400)
                 candidate_data['CandidateSkills'] = [skill.lower() for skill in candidate_data['CandidateSkills']]
                 candidate = Candidate.objects.get(CandidateId=id)
                 candidate_serializer = CandidateSerializer(candidate, data=candidate_data)
                 if candidate_serializer.is_valid():
                     candidate_serializer.save()
-                    return JsonResponse('Candidate Updated Succesfully!', safe=False) 
+                    return JsonResponse('Candidate Updated Succesfully!', safe=False, status=200) 
             except:
-                return JsonResponse('Failed to Update Candidate!', safe=False)
+                return JsonResponse('Failed to Update Candidate!', safe=False, status=404)
         case 'DELETE':
             try:
                 if id == 0:
-                    return JsonResponse('Must specify candidate ID in order to delete it!', safe=False) 
+                    return JsonResponse('Must specify candidate ID in order to delete it!', safe=False, status=400) 
                 candidate = Candidate.objects.get(CandidateId=id)
                 candidate.delete()
-                return JsonResponse('Candidate Deleted Succesfully', safe=False)
+                return JsonResponse('Candidate Deleted Succesfully', safe=False, status=200)
             except:
-                return JsonResponse('Failed to Delete candidate!', safe=False)
+                return JsonResponse('Failed to Delete candidate!', safe=False, status=400)
