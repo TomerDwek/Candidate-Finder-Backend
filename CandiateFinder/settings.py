@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'candidateFinderApp.apps.CandidatefinderappConfig'
+    'candidateFinderApp.apps.CandidatefinderappConfig',
+    'SkillsApp.apps.SkillsappConfig',
+    'JobsApp.apps.JobsappConfig',
+    'CandidatesApp.apps.CandidatesappConfig'
 ]
 
 MIDDLEWARE = [
